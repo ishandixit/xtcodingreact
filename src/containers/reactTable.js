@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import ReactTable from "react-table";
 import { connect } from "react-redux";
+import { Bar } from "react-chartjs-2";
+
 import {AddUpvote} from "../actions/userActions";
 const columns = [
   {
@@ -59,6 +61,25 @@ class SkuListing extends React.Component {
       );
       return item;
     });
+
+    console.log(Array.from(data2.keys()));
+    const labels = Array.from(data2.keys());
+    const data3 = data2.map((item, index) => {
+      return item.voteCount;
+    });
+    console.log(data3, "=====");
+    const state = {
+      labels: labels,
+      datasets: [
+        {
+          label: "Votes",
+          backgroundColor: "rgba(75,192,192,1)",
+          borderColor: "rgba(0,0,0,1)",
+          borderWidth: 2,
+          data: data3
+        }
+      ]
+    };
     return (
       <Fragment>
         <ReactTable
@@ -72,11 +93,25 @@ class SkuListing extends React.Component {
           className="col m12 card z-depth-0"
           noDataText={<span>No found</span>}
         />
+         <Bar
+          data={state}
+          options={{
+            title: {
+              display: true,
+              text: "Average votes per user",
+              fontSize: 20
+            },
+            legend: {
+              display: true,
+              position: "right"
+            }
+          }}
+        />
       </Fragment>
     );
   }
 }
-const mapStateToProps = state => (console.log("ijsode the mapstate to prope",state),{
+const mapStateToProps = state => ({
   data2:state.user
 });
 const mapDispatchToProps = dispatch => {

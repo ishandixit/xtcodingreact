@@ -8,7 +8,6 @@ import PopUp from './components/popUp'
 import Header from "./includes/header"
 import { ChangeUserRole } from "./actions/userActions";
 import { enableLimitedAccess } from "./components/limitedAccess";
-import Inscan from "./containers/Inwarding/inscan";
 
 const LoadingPage = ({ isLoading, error }) => {
 	if (isLoading) {
